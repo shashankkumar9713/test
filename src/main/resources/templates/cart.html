@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff3cd;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .item {
+            background: white;
+            margin: 12px auto;
+            padding: 15px;
+            width: 360px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .item h4 {
+            margin: 0 0 8px 0;
+        }
+        .total {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>🛒 Your Cart</h2>
+
+<div th:each="item : ${items}" class="item">
+    <h4 th:text="${item.foodName}"></h4>
+    <p>Price: ₹ <span th:text="${item.price}"></span></p>
+    <p>Quantity: <span th:text="${item.quantity}"></span></p>
+    <p>Total: ₹ <span th:text="${item.totalPrice}"></span></p>
+</div>
+
+</body>
+</html>

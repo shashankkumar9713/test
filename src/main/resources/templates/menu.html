@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding-bottom: 90px;
+            background: #ffffff;
+        }
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .food {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+        }
+        .food img {
+            width: 90px;
+            height: 90px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .info {
+            flex: 1;
+            margin-left: 15px;
+        }
+        .info h4 {
+            margin: 0 0 5px 0;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+        .actions button {
+            padding: 6px 12px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .add {
+            background: #28a745;
+            color: white;
+        }
+        .remove {
+            background: #dc3545;
+            color: white;
+        }
+        .cart-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6f00;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+<h2>📋 Menu</h2>
+
+<div th:each="food : ${foods}" class="food">
+
+    <img th:src="${food.imageUrl}" alt="Food Image">
+
+    <div class="info">
+        <h4 th:text="${food.name}"></h4>
+        <p>₹ <span th:text="${food.price}"></span></p>
+    </div>
+
+    <div class="actions">
+        <!-- ADD -->
+        <form th:action="@{/add-to-cart}" method="post">
+            <input type="hidden" name="name" th:value="${food.name}">
+            <input type="hidden" name="price" th:value="${food.price}">
+            <button class="add">+</button>
+        </form>
+
+        <!-- REMOVE -->
+        <form th:action="@{/remove-from-cart}" method="post">
+            <input type="hidden" name="name" th:value="${food.name}">
+            <button class="remove">−</button>
+        </form>
+    </div>
+</div>
+
+<a href="/cart" class="cart-btn">🛒 View Cart</a>
+
+</body>
+</html>
